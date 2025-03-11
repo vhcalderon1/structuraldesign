@@ -9,7 +9,7 @@
 % conversions, plotting with publication-quality formatting, and figure export.
 %
 % Inputs: 
-%   - Dataset File: 'Momento_Curvatura.txt' in ../datasets/
+%   - Dataset File: 'Curvature_Moment.txt' in ../datasets/
 %     Columns: [Curvature (1/cm), Moment (kN-m)]
 % Outputs:
 %   - Figure: 'Moment_Curvature_Plot.eps' in ../outputs/

@@ -9,8 +9,8 @@
 % external directory and generates publication-quality figures.
 %
 % INPUTS:
-% - Corte_Convencional.txt   : Conventional base shear data
-% - Corte_prueba.txt         : Isolated base shear data
+% - Conventional_Court.txt   : Conventional base shear data
+% - Court_test.txt         : Isolated base shear data
 %   (Located in ../datasets relative to execution path)
 %
 % OUTPUTS:
