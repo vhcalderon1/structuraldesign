@@ -267,7 +267,6 @@ ylabel('Axial Load (kN)')
 title('Interaction Diagram - T-Beam')
 grid on
 legend('Positive Axis', 'Negative Axis')
-saveas(gcf, fullfile(outputDir, 'nominal_interaction.png'));
 close(gcf)
 
 % Phi-factor modified diagram

@@ -36,12 +36,12 @@ end
 
 %% Load and Process Data
 % Conventional base system
-conventionalData = load(fullfile(datasetFolder, 'Corte_Convencional.txt'));
+conventionalData = load(fullfile(datasetFolder, 'Conventional_Court.txt'));
 heightLevelsConventional = conventionalData(:,1); % Elevation [m]
 normalizedShearConventional = conventionalData(:,2)/totalWeight * 100; % V/W [%]
 
 % Isolated base system
-isolatedData = load(fullfile(datasetFolder, 'Corte_prueba.txt'));
+isolatedData = load(fullfile(datasetFolder, 'Court_test.txt'));
 heightLevelsIsolated = isolatedData(:,1); % Elevation [m]
 normalizedShearIsolated = isolatedData(:,2)/totalWeight * 100; % V/W [%]
 

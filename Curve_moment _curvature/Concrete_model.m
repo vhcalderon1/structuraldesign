@@ -5,36 +5,32 @@
 % Updated: Jefferson De la Cuba (February 2025)
 %------------------------------------------------------------------------------
 % This code generates a bilinear stress-strain model for concrete under compression
-% based on ASTM standards. The model consists of an ascending parabolic branch
-% and a linear descending branch. The inputs include concrete compressive strength
-% in kg/cm², and the outputs are stress and strain vectors along with visualization.
+% based on ASTM standards using SI units. The model consists of an ascending parabolic
+% branch and linear descending branch, with all calculations in kN/m².
 %
 % Inputs:
-%   - Compressive strength (kg/cm²)
+%   - Compressive strength (kN/m²)
 %   - Peak stress (90% of compressive strength)
 %   - Concrete modulus (calculated from compressive strength)
-%   - material_params.txt : Contains:
-%                            1. Compressive strength [kg/cm²] (e.g., 210)
-%                            2. Peak stress factor (optional, default = 0.9)
-%                            3. Ultimate strain (optional, default = 0.0038)
-%   - strain_control.txt  : (Optional) Custom strain range/resolution for curve generation
+%   - Compressive strength [kN/m²] (e.g., 21000)
+%   - Peak stress factor (optional, default = 0.9)
+%   - Ultimate strain (optional, default = 0.0038)n
 %
 % Outputs:
-%   - stress_curve, strain_curve : Data vectors in MATLAB workspace
-%   - ../outputs/Concrete_Stress_Strain_Model.eps : Vector graphic (300 DPI)
-%   - ../outputs/Concrete_Stress_Strain_Model.tif  : Raster graphic (300 DPI)
-%   - ../datasets/ : Directory for input/output data archival
+%   - stress_curve (kN/m²), strain_curve : Data vectors
+%   - ../outputs/Concrete_Stress_Strain_Model.png : High-res plot (600 DPI)
+%   - ../datasets/ : Input/output data directory
 %
 %% Clean Workspace and Verify File Structure
 clear
 close all
 clc
 
-% Configure output directory using path traversal
+% Configure directories
 outputDir = '../outputs';
 datasetsDir = '../datasets';
 
-% Verify/Create required directories
+% Create directories if missing
 if ~exist(datasetsDir, 'dir')
     mkdir(datasetsDir)
     fprintf('Created datasets directory: %s\n', datasetsDir)
@@ -46,18 +42,18 @@ if ~exist(outputDir, 'dir')
 end
 
 %% ==================== Material Properties ===========================
-compressive_strength_kgcm2 = 210;          % Concrete strength [kg/cm²]
-peak_stress_kgcm2 = compressive_strength_kgcm2 * 0.9; % 90% of f'_c
-concrete_modulus_kgcm2 = round(15100*sqrt(compressive_strength_kgcm2), -2);
+compressive_strength = 21000;          % Concrete strength [kN/m²]
+peak_stress = compressive_strength * 0.9; % 90% of f'_c
+concrete_modulus = 149535 * sqrt(compressive_strength); % Modulus [kN/m²]
 
 %% ==================== Stress-Strain Calculations ====================
 [total_stress, total_strain] = calculate_concrete_model(...
-    compressive_strength_kgcm2, peak_stress_kgcm2, concrete_modulus_kgcm2);
+    compressive_strength, peak_stress, concrete_modulus);
 
 %% ==================== Visualization & Export ========================
 configure_plot(total_strain, total_stress);
 save_figure(fullfile(outputDir, 'Concrete_Stress_Strain_Model'));
-close(gcf); % Close figure after saving
+close(gcf);
 
 %% ====================================================================
 % Supporting Functions
@@ -83,26 +79,26 @@ end
 function configure_plot(strain, stress)
     figure('Units','centimeters','Position',[0 0 12 10])
     
-    % Main plot elements
+    % Main plot configuration
     plot(strain, stress, 'k', 'LineWidth', 2)
     hold on
     plot([max(strain) max(strain)], [0 max(stress)], '--k', 'LineWidth', 1.5)
     
-    % Axis configuration
+    % Axis settings
     ax = gca;
     ax.XAxis.Exponent = -3;
-    ax.YLim = [-10 200];
+    ax.YLim = [-1000 25000];
     ax.XLim = [-0.1e-3 4e-3];
     ax.XTick = 0:2e-3:4e-3;
-    ax.YTick = 0:50:200;
+    ax.YTick = 0:5000:25000;
     
-    % Latex-style labels
+    % Labels with LaTeX formatting
     xlabel('Concrete Strain, $\varepsilon_c$', 'Interpreter', 'latex', ...
         'FontSize', 13, 'FontName', 'Times New Roman')
-    ylabel('Stress, $\sigma_c$ (kg/cm$^2$)', 'Interpreter', 'latex', ...
+    ylabel('Stress, $\sigma_c$ (kN/m$^2$)', 'Interpreter', 'latex', ...
         'FontSize', 13, 'FontName', 'Times New Roman')
     
-    % Legend and grid
+    % Legend configuration
     legend({'Concrete Model', 'Ultimate Strain'}, ...
         'Location', 'northeast', 'FontName', 'Times New Roman')
     legend('boxoff')
@@ -110,14 +106,12 @@ function configure_plot(strain, stress)
 end
 
 function save_figure(fname)
+    % Save figure as PNG with 600 DPI
     set(gcf, 'PaperUnits', 'centimeters', ...
              'PaperSize', [12 10], ...
              'PaperPositionMode', 'manual', ...
              'PaperPosition', [0 0 12 10])
     
-    % Save as EPS and TIFF
-    print(fname, '-depsc', '-r300');
-    print(fname, '-dtiff', '-r300');
-    
-    fprintf('Saved figures:\n  %s.eps\n  %s.tif\n', fname, fname)
+    print([fname '.png'], '-dpng', '-r600');
+    fprintf('Saved figure: %s.png\n', fname);
 end

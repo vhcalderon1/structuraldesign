@@ -270,50 +270,59 @@ P_u_M22 = T_P34_M22(:,1);  % Applied axial loads (kN)
 M_u_M22 = T_P34_M22(:,2);  % Applied moments (kN-m)
 sz = 15;  % Size of scatter plot markers
 
-x_lim = 2.5e3;   % Limit for moment axis (kN-m)
-y_lim_sup = 3e3; % Upper limit for axial load (kN)
-y_lim_inf = 1e3; % Lower limit for axial load (kN)
+x_lim = 1.5e4;   % Limit for moment axis (kN-m)
+y_lim_sup = 1.4e4; % Upper limit for axial load (kN)
+y_lim_inf = 2e3; % Lower limit for axial load (kN)
 
 % Figure 3: Interaction Diagram with Applied Loads
 figure
 plot(M_n_graf, P_n_graf, 'Color', [0 0.8 1], 'LineWidth', 2)
 hold on
 plot(phi_M_n_graf, phi_P_n_graf, '--', 'Color', [0 0.8 1], 'LineWidth', 2)
-hold on
-scatter(M_u_M22, P_u_M22, sz, 'MarkerEdgeColor', [0.7 0.7 0.7], ...
-    'MarkerFaceColor', [0.7 0.7 0.7], 'LineWidth', 0.5)
-hold on
+scatter(M_u_M22, P_u_M22, 45, 'MarkerEdgeColor', [0.3 0.3 0.3],...
+    'MarkerFaceColor', [0.7 0.7 0.7], 'LineWidth', 0.8)
 plot([-x_lim, x_lim], [0, 0], 'k-', 'LineWidth', 1.5)
 plot([0, 0], [-y_lim_inf, y_lim_sup], 'k-', 'LineWidth', 1.5)
-xticks(-x_lim:1e3:x_lim)
-yticks(-y_lim_inf:1e3:y_lim_sup)
+
+% Axis formatting
+xticks(-x_lim:5e3:x_lim)  % 2000 kN-m increments
+yticks(-y_lim_inf:2e3:y_lim_sup)  % 2000 kN increments (includes negatives)
 xlabel('Moment (kN-m)', 'FontSize', 14, 'FontName', 'Times New Roman')
 ylabel('Axial Load (kN)', 'FontSize', 14, 'FontName', 'Times New Roman')
-ytickformat('%.0f')
+
+% Disable scientific notation explicitly
 ax = gca;
-ax.YAxis.Exponent = 3;
-ax.XAxis.Exponent = 3;
+ax.XAxis.Exponent = 0;  % Turns off X-axis scientific notation
+ax.YAxis.Exponent = 0;  % Turns off Y-axis scientific notation
+
+% Adjust grid and frame
 box off
+grid on
 set(gca, 'LineWidth', 1.3, 'FontSize', 12, 'FontName', 'Times New Roman')
 axis([-x_lim x_lim -y_lim_inf y_lim_sup])
 title('T-Wall Interaction Diagram with Applied Loads', 'FontSize', 14)
-legend('Nominal Interaction', 'Factored Interaction', 'Applied Loads', 'Location', 'best')
-
+legend('Nominal', 'Factored', 'Applied Loads', 'Location', 'best')
 %% Enhanced Figure Handling
 figNames = {'InteractionDiagram_Nominal', 'InteractionDiagram_Factored',...
            'InteractionDiagram_AppliedLoads'};
 
-% Save all open figures
+% Save all open figures except the Nominal Interaction Diagram
 figHandles = findobj('Type', 'figure');
 for idx = 1:length(figHandles)
-    figure(figHandles(idx))
+    currentFig = figHandles(idx);
+    figNumber = currentFig.Number;
+    % Skip saving the first figure (Nominal Interaction Diagram)
+    if figNumber == 1
+        close(gcf)
+        continue;
+    end
+    figure(currentFig)
     outputPath = fullfile(outputDir, sprintf('Figure%d_%s.png',...
-                   figHandles(idx).Number, figNames{figHandles(idx).Number}));
+                   figNumber, figNames{figNumber}));
     print(outputPath, '-dpng', '-r300')
     fprintf('Saved: %s\n', outputPath)
     close(gcf)  % Close figure after saving
 end
-
 %% Display Final Results
 fprintf('\nAnalysis completed successfully\n');
 fprintf('Output directory: %s\n', outputDir);

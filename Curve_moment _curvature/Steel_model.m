@@ -6,7 +6,7 @@
 % -------------------------------------------------------------------------
 % Generates a bilinear elastic-perfectly plastic stress-strain curve for structural steel 
 % using SI units. Implements Hookean elasticity with perfect plasticity post-yield. 
-% Auto-configures output directory and saves publication-quality figures in EPS/TIFF formats.
+% Auto-configures output directory
 %
 % Input Parameters:
 %   - yield_stress_MPa    : Yield stress [MPa] (scalar, typical range: 250-550 MPa)
@@ -20,7 +20,7 @@
 %   - strain_data.txt     : (Optional) Custom strain input file for curve resolution control.
 %
 % Outputs:
-%   - EPS/TIFF figure     : Saved in '../outputs/' directory
+%   - PNG figure          : Saved in '../outputs/' directory
 %   - MATLAB figure       : Interactive plot window with dimensionless strain vs MPa stress
 % -------------------------------------------------------------------------
 

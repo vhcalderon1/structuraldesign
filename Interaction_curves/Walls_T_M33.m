@@ -259,7 +259,6 @@ xlabel('Moment (kN-m)');
 ylabel('Axial Load (kN)');
 title('Nominal Interaction Diagram');
 legend('Positive Side', 'Negative Side', 'Location', 'best');
-print(save_path('Nominal_Interaction_Diagram'), '-dpng', '-r300');
 close(gcf);
 
 % Plot 2: Complete Interaction Diagrams

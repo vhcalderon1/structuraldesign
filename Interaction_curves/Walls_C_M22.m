@@ -345,7 +345,6 @@ xlabel('Moment (kN-m)')
 ylabel('Axial Load (kN)')
 title('Positive vs. Negative Reinforcement Interaction')
 legend('Positive', 'Negative', 'Location', 'best')
-saveas(gcf, fullfile(output_path, 'Figure1_ReinforcementComparison.png'))
 close(gcf)
 
 % Figure 2: Nominal vs Factored Capacity

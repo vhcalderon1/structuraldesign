@@ -321,9 +321,9 @@ P_u_M33 = data(:,1);  % Applied axial loads (kN)
 M_u_M33 = data(:,2);  % Applied moments (kN-m)
 sz = 15;              % Marker size for the scatter plot
 
-x_lim = 2*10^3;       % x-axis limit for moment (kN-m)
-y_lim_sup = 2*10^3;   % Upper y-axis limit for axial load (kN)
-y_lim_inf = 0.5*10^3; % Lower y-axis limit for axial load (kN)
+x_lim = 8*10^3;       % x-axis limit for moment (kN-m)
+y_lim_sup = 1*10^4;   % Upper y-axis limit for axial load (kN)
+y_lim_inf = 2*10^3; % Lower y-axis limit for axial load (kN)
 
 figure
 p1 = plot(M_n_graf, P_n_graf, 'Color', [0 0.8 1], 'LineWidth', 2, 'DisplayName', 'Nominal Interaction Diagram');
@@ -337,19 +337,19 @@ hold on
 plot([-x_lim x_lim], [0 0], 'k', 'LineWidth', 0.9)
 plot([0 0], [-y_lim_inf y_lim_sup], 'k', 'LineWidth', 0.9)
 grid on
-xticks(-x_lim:10^3:x_lim);
-yticks(-y_lim_inf:0.5*10^3:y_lim_sup);
+xticks(-x_lim:2*10^3:x_lim);
+yticks(-y_lim_inf:2*10^3:y_lim_sup);
 xlabel('Moment (kN-m)', 'FontSize', 14, 'FontName', 'Times New Roman');
 ylabel('Axial Load (kN)', 'FontSize', 14, 'FontName', 'Times New Roman');
 title('Interaction Diagram with Applied Loads', 'FontSize', 14, 'FontName', 'Times New Roman');
-ytickformat('%.1f')  % Format tick labels on the y-axis
+ytickformat('%.0f')  % Format tick labels on the y-axis
 ax = gca;
-ax.YAxis.Exponent = 3; % Set exponent for y-axis tick labels
-ax.XAxis.Exponent = 3; % Set exponent for x-axis tick labels
+ax.YAxis.Exponent = 0; % Set exponent for y-axis tick labels
+ax.XAxis.Exponent = 0; % Set exponent for x-axis tick labels
 box off
 set(gca, 'LineWidth', 1.3, 'FontSize', 12, 'FontName', 'Times New Roman')
 axis([-x_lim x_lim -y_lim_inf y_lim_sup])
-legend('show', 'Location', 'Best')
+legend('Nominal', 'Factored','Applied Loads', 'Location', 'Best')
 
 print(fullfile(outputDir, 'Interaction_Diagram_with_Applied_Loads'), '-dpng', '-r300')
 fprintf('Saved: Interaction_Diagram_with_Applied_Loads.png\n');

@@ -6,13 +6,13 @@
 % ----------------------------------------------------------------------------
 % This script processes structural engineering data to analyze and visualize 
 % the moment-curvature relationship of a beam cross-section. It includes unit 
-% conversions, plotting with publication-quality formatting, and figure export.
+% conversions, and figure export.
 %
 % Inputs: 
 %   - Dataset File: 'Curvature_Moment.txt' in ../datasets/
 %     Columns: [Curvature (1/cm), Moment (kN-m)]
 % Outputs:
-%   - Figure: 'Moment_Curvature_Plot.eps' in ../outputs/
+%   - Figure: 'Moment_Curvature_Plot.png' in ../outputs/
 %     Formatted plot showing curvature (1/cm) vs. moment (kN-m)
 %
 % -------------------------------------------------------------------------
@@ -32,7 +32,7 @@ if ~exist(outputFolder, 'dir')
 end
 
 %% Load Data
-inputFile = fullfile(datasetFolder, 'Momento_Curvatura.txt');
+inputFile = fullfile(datasetFolder, 'Curvature_Moment.txt');
 data = load(inputFile);
 
 % Extract curvature and moment data
@@ -71,7 +71,7 @@ set(gcf, 'PaperPositionMode', 'manual');
 set(gcf, 'PaperPosition', [0 0 width height]);
 
 %% Save Output Figure
-outputFile = fullfile(outputFolder, 'Moment_Curvature_Plot.eps');
-print(outputFile, '-depsc', '-tiff');
+outputFile = fullfile(outputFolder, 'Moment_Curvature_Plot.png');
+print(outputFile, '-dpng', '-r300'); % Save as PNG with 300 DPI resolution
 disp(['Plot saved at: ', outputFile]);
-close(gcf)
+close(gcf);

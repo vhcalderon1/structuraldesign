@@ -264,11 +264,6 @@ title('Nominal Interaction Diagram');
 legend('Positive Bending', 'Negative Bending', 'Location', 'Best');
 grid on;
 
-% Save the figure to outputs directory
-nominalFigPath = fullfile(outputDir, 'Nominal_Interaction_Diagram.png');
-saveas(gcf, nominalFigPath);
-fprintf('Saved nominal interaction diagram to: %s\n', nominalFigPath);
-
 % Close the figure
 close(gcf);
 
