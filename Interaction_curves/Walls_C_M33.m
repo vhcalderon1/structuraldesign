@@ -289,8 +289,7 @@ title('Nominal Interaction Diagrams (Positive and Negative)', 'FontSize', 14, 'F
 legend('Location','Best')
 set(gca, 'LineWidth', 1.3, 'FontSize', 12, 'FontName', 'Times New Roman')
 
-print(fullfile(outputDir, 'Nominal_Interaction_Diagram'), '-dpng', '-r300')
-fprintf('Saved: Nominal_Interaction_Diagram.png\n');
+print('-dpng', '-r300')
 close(gcf)  % Prevent memory buildup
 
 % Figure 2: Combined Nominal and Design Interaction Diagrams
@@ -305,8 +304,7 @@ title('Combined Nominal and Design Interaction Diagrams', 'FontSize', 14, 'FontN
 legend('Location','Best')
 set(gca, 'LineWidth', 1.3, 'FontSize', 12, 'FontName', 'Times New Roman')
 
-print(fullfile(outputDir, 'Combined_Nominal_and_Design_Interaction_Diagrams'), '-dpng', '-r300')
-fprintf('Saved: Combined_Nominal_and_Design_Interaction_Diagrams.png\n');
+print( '-dpng', '-r300')
 close(gcf)  % Prevent memory buildup
 
 %% Applied Loads on the Wall
@@ -359,4 +357,4 @@ close(gcf)  % Prevent memory buildup
 Pu_Nch = Ag * fpc * 0.3 / force_conversion;  % Maximum axial load (kN)
 %% Final Outputs
 fprintf('\nMaximum Axial Capacity: %.2f kN\n', Pu_Nch);
-fprintf('All outputs saved to: %s\n', outputDir);
+fprintf('The output saved to: %s\n', outputDir);

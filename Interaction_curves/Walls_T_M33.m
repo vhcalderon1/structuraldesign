@@ -259,6 +259,7 @@ xlabel('Moment (kN-m)');
 ylabel('Axial Load (kN)');
 title('Nominal Interaction Diagram');
 legend('Positive Side', 'Negative Side', 'Location', 'best');
+print('-dpng', '-r300');
 close(gcf);
 
 % Plot 2: Complete Interaction Diagrams
@@ -270,7 +271,7 @@ xlabel('Moment (kN-m)');
 ylabel('Axial Load (kN)');
 title('Complete Interaction Diagrams');
 legend('Nominal', 'Design', 'Location', 'best');
-print(save_path('Complete_Interaction_Diagrams'), '-dpng', '-r300');
+print('-dpng', '-r300');
 close(gcf);
 
 % Wall Load Demands

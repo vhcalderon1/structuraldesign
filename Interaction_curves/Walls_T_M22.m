@@ -312,7 +312,7 @@ for idx = 1:length(figHandles)
     currentFig = figHandles(idx);
     figNumber = currentFig.Number;
     % Skip saving the first figure (Nominal Interaction Diagram)
-    if figNumber == 1
+    if figNumber == 1 || figNumber == 2
         close(gcf)
         continue;
     end

@@ -194,11 +194,11 @@ ylabel('Axial Load (kN)');
 legend('Nominal', 'Design', 'Location', 'Best');
 title('Interaction Diagram');
 
-% Save as FIG
+% Save
 saveas(gcf, fullfile(outputDir, 'InteractionDiagram.png')); 
 
 % Export PNG
-print(fullfile(outputDir, 'C_I_Conven_TRec_M33.png'), '-dpng', '-r300'); 
+print('-dpng', '-r300'); 
 
 close(gcf); % Always close after saving
 

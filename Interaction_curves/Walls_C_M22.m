@@ -345,6 +345,7 @@ xlabel('Moment (kN-m)')
 ylabel('Axial Load (kN)')
 title('Positive vs. Negative Reinforcement Interaction')
 legend('Positive', 'Negative', 'Location', 'best')
+print('-dpng', '-r300');
 close(gcf)
 
 % Figure 2: Nominal vs Factored Capacity
@@ -357,7 +358,7 @@ xlabel('Moment (kN-m)')
 ylabel('Axial Load (kN)')
 title('Nominal vs Factored Interaction Diagram')
 legend('Nominal', 'Factored', 'Location', 'best')
-saveas(gcf, fullfile(output_path, 'Figure2_NominalFactored.png'))
+print( '-dpng', '-r300');
 close(gcf)
 
 %% Applied Loads on the Wall
